@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnyeVtol | Global Electric Vertical Takeoff & Landing Directory</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #060b14;
+            --bg-card: #0d1626;
+            --bg-card-hover: #132038;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --brand-dark: #1d4ed8;
+            --brand-light: #38bdf8;
+            --border-color: rgba(56, 189, 248, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Unified Gradient Brand Logo: Dark in 'Any', Light in 'eVtol' */
+        .brand-logo {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 38%, #38bdf8 70%, #bae6fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Header */
+        header {
+            background: rgba(6, 11, 20, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--brand-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 5rem 5% 3.5rem;
+            background: radial-gradient(circle at top center, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Search & Filter Bar */
+        .controls {
+            max-width: 1100px;
+            margin: 0 auto 2.5rem;
+            padding: 0 5%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 260px;
+            padding: 0.85rem 1.2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--brand-light);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(90deg, var(--brand-dark), var(--brand-light));
+            color: #fff;
+            border-color: transparent;
+        }
+
+        /* Directory Grid */
+        .directory {
+            max-width: 1100px;
+            margin: 0 auto 4rem;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: transform 0.25s, background 0.25s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .card-company {
+            font-size: 0.85rem;
+            color: var(--brand-light);
+            font-weight: 600;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--brand-light);
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .specs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            text-align: center;
+        }
+
+        .spec-item span {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+        }
+
+        .spec-item strong {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* Submit / Contact Section */
+        .cta-section {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.15), rgba(56, 189, 248, 0.08));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 0.75rem;
+            font-size: 1.8rem;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #1d4ed8, #38bdf8);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 5%;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.3rem; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container"><span class="brand-logo">AnyeVtol</span></a>
+        <nav>
+            <a href="#directory">Directory</a>
+            <a href="#submit">List Aircraft</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Explore the Future with <span class="brand-logo">AnyeVtol</span></h1>
+        <p>The comprehensive global directory and comparison platform for Electric Vertical Takeoff and Landing (eVTOL) aircraft, air taxis, and autonomous aerial mobility.</p>
+    </section>
+
+    <section id="directory">
+        <div class="controls">
+            <input type="text" id="searchInput" class="search-box" placeholder="Search aircraft, manufacturer, or country..." onkeyup="filterCards()">
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterRegion('all', this)">All Regions</button>
+                <button class="filter-btn" onclick="filterRegion('USA', this)">USA</button>
+                <button class="filter-btn" onclick="filterRegion('Europe', this)">Europe</button>
+                <button class="filter-btn" onclick="filterRegion('Asia', this)">Asia</button>
+            </div>
+        </div>
+
+        <div class="directory" id="cardsContainer">
+            <!-- Card 1 -->
+            <div class="card" data-region="USA">
+                <div>
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Joby S4</div>
+                            <div class="card-company">Joby Aviation • USA</div>
+                        </div>
+                        <span class="badge">Air Taxi</span>
+                    </div>
+                    <p class="card-desc">All-electric 6-rotor tilt-propeller aircraft designed for fast, quiet urban air mobility operations.</p>
+                </div>
+                <div class="specs">
+                    <div class="spec-item"><span>Top Speed</span><strong>322 km/h</strong></div>
+                    <div class="spec-item"><span>Range</span><strong>160 km</strong></div>
+                    <div class="spec-item"><span>Capacity</span><strong>1 + 4 Pax</strong></div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
