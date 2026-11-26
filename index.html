@@ -17,17 +17,22 @@ nav a{color:#94a3b8;text-decoration:none;margin-left:1.2rem;font-size:.92rem;fon
 .hero{text-align:center;padding:4rem 5% 2.5rem;background:radial-gradient(circle at top,rgba(37,99,235,.16),transparent 70%)}
 .hero h1{font-size:2.7rem;margin-bottom:1rem;line-height:1.2}
 .hero p{color:#94a3b8;max-width:650px;margin:0 auto 1.5rem;font-size:1.05rem}
-.controls{max-width:1100px;margin:0 auto 2rem;padding:0 5%;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between}
+.controls{max-width:1100px;margin:0 auto 1.2rem;padding:0 5%;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between}
 .search-box{flex:1;min-width:240px;padding:.85rem 1.1rem;border-radius:10px;border:1px solid rgba(56,189,248,.22);background:#0d1626;color:#fff;font-size:.95rem}
 .filters{display:flex;gap:.5rem;flex-wrap:wrap}
-.filter-btn{padding:.6rem 1.05rem;border-radius:8px;border:1px solid rgba(56,189,248,.22);background:#0d1626;color:#94a3b8;cursor:pointer;font-weight:600}
+.filter-btn{padding:.6rem 1.05rem;border-radius:8px;border:1px solid rgba(56,189,248,.22);background:#0d1626;color:#94a3b8;cursor:pointer;font-weight:600;transition:.2s}
 .filter-btn.active{background:linear-gradient(90deg,#1d4ed8,#38bdf8);color:#fff;border-color:transparent}
+.market-banner{max-width:1100px;margin:0 auto 2rem;padding:0 5%}
+.market-box{background:linear-gradient(90deg,rgba(29,78,216,.14),rgba(13,22,38,.9));border:1px solid rgba(56,189,248,.25);border-left:4px solid #38bdf8;border-radius:12px;padding:1rem 1.4rem}
+.market-box h3{font-size:1.05rem;color:#38bdf8;margin-bottom:.25rem}
+.market-box p{font-size:.88rem;color:#cbd5e1}
 .grid{max-width:1100px;margin:0 auto 3.5rem;padding:0 5%;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
 .card{background:linear-gradient(160deg,#0d1626 0%,#09101d 100%);border:1px solid rgba(56,189,248,.18);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
 .card:hover{transform:translateY(-4px);border-color:rgba(56,189,248,.45)}
 .img-box{width:100%;height:190px;background:#09111e;position:relative;overflow:hidden}
 .img-box img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
 .card:hover .img-box img{transform:scale(1.04)}
+.img-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,rgba(29,78,216,.28),#09111e 75%);color:#38bdf8;font-weight:800;font-size:1.15rem;letter-spacing:.5px}
 .badge{position:absolute;top:10px;right:10px;font-size:.74rem;padding:.28rem .65rem;border-radius:6px;background:rgba(6,11,20,.85);border:1px solid rgba(56,189,248,.32);color:#38bdf8;font-weight:600}
 .card-body{padding:1.4rem;display:flex;flex-direction:column;flex:1;justify-content:space-between}
 .card-title{font-size:1.25rem;font-weight:700}
@@ -47,10 +52,10 @@ footer{border-top:1px solid rgba(56,189,248,.15);padding:1.8rem 5%;text-align:ce
 </style>
 </head>
 <body>
-<div class="acq-bar"><strong>Strategic Digital Asset:</strong> <span class="brand-logo">AnyeVTOL</span>.com is available for acquisition. <a href="#acquire">View Offer Details &rarr;</a></div>
+<div class="acq-bar"><strong>Strategic Digital Asset:</strong> <span class="brand-logo">AnyeVTOL</span>.com is available for acquisition. <a href="https://atom.com" target="_blank" rel="noopener">Buy / Make an Offer on Atom &rarr;</a></div>
 <header>
 <a href="#" class="logo"><span class="brand-logo">AnyeVTOL</span></a>
-<nav><a href="#directory">Directory</a><a href="#acquire" class="nav-btn">Acquire Domain</a></nav>
+<nav><a href="#directory">Directory</a><a href="https://atom.com" target="_blank" rel="noopener" class="nav-btn">Acquire Domain</a></nav>
 </header>
 <section class="hero">
 <h1>Explore the Future with <span class="brand-logo">AnyeVTOL</span></h1>
@@ -60,33 +65,42 @@ footer{border-top:1px solid rgba(56,189,248,.15);padding:1.8rem 5%;text-align:ce
 <div class="controls">
 <input type="text" id="searchInput" class="search-box" placeholder="Search aircraft, manufacturer, or country..." onkeyup="filterCards()">
 <div class="filters">
-<button class="filter-btn active" onclick="filterRegion('all',this)">All</button>
-<button class="filter-btn" onclick="filterRegion('USA',this)">USA</button>
+<button class="filter-btn active" onclick="filterRegion('all',this)">All Markets</button>
+<button class="filter-btn" onclick="filterRegion('Americas',this)">Americas</button>
 <button class="filter-btn" onclick="filterRegion('Europe',this)">Europe</button>
 <button class="filter-btn" onclick="filterRegion('Asia',this)">Asia</button>
+<button class="filter-btn" onclick="filterRegion('MENA',this)">Middle East</button>
 </div>
-</div>
+<div class="market-banner"><div class="market-box" id="marketInfo"><h3>Global eVTOL Market Overview</h3><p>Tracking top electric air taxi manufacturers worldwide. Projected global market size: $23.4B by 2030.</p></div></div>
 <div class="grid" id="cardsContainer">
-<div class="card" data-region="USA"><div class="img-box"><img src="1.jpg.jpg" alt="Joby S4"><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">Joby S4</div><div class="card-maker">Joby Aviation &bull; USA</div><p class="card-desc">All-electric 6-rotor tilt-propeller aircraft engineered for fast, quiet urban air mobility operations.</p></div><div class="specs"><div><span>Top Speed</span><strong>322 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
-<div class="card" data-region="USA"><div class="img-box"><img src="2.jpg.png" alt="Archer Midnight"><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">Midnight</div><div class="card-maker">Archer Aviation &bull; USA</div><p class="card-desc">12-propeller piloted eVTOL built for rapid back-to-back urban flights with minimal turnaround charging.</p></div><div class="specs"><div><span>Top Speed</span><strong>241 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
+<div class="card" data-region="Americas"><div class="img-box"><img src="1.jpg.jpg" alt="Joby S4"><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">Joby S4</div><div class="card-maker">Joby Aviation &bull; USA</div><p class="card-desc">All-electric 6-rotor tilt-propeller aircraft engineered for fast, quiet urban air mobility operations.</p></div><div class="specs"><div><span>Top Speed</span><strong>322 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
+<div class="card" data-region="Americas"><div class="img-box"><img src="2.jpg.png" alt="Archer Midnight"><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">Midnight</div><div class="card-maker">Archer Aviation &bull; USA</div><p class="card-desc">12-propeller piloted eVTOL built for rapid back-to-back urban flights with minimal turnaround charging.</p></div><div class="specs"><div><span>Top Speed</span><strong>241 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
+<div class="card" data-region="Americas"><div class="img-box"><div class="img-fallback">BETA ALIA-250</div><span class="badge">Cargo &amp; Pax</span></div><div class="card-body"><div><div class="card-title">ALIA-250</div><div class="card-maker">Beta Technologies &bull; USA</div><p class="card-desc">Long-range electric vertical aircraft designed for regional logistics, medical transport, and passenger flights.</p></div><div class="specs"><div><span>Top Speed</span><strong>270 km/h</strong></div><div><span>Range</span><strong>400 km</strong></div><div><span>Capacity</span><strong>1 + 5 Pax</strong></div></div></div></div>
+<div class="card" data-region="Americas"><div class="img-box"><div class="img-fallback">EVE AIR MOBILITY</div><span class="badge">Urban</span></div><div class="card-body"><div><div class="card-title">Eve eVTOL</div><div class="card-maker">Embraer / Eve &bull; Brazil</div><p class="card-desc">Lift-plus-cruise zero-emission air taxi backed by Embraer's global aerospace certification network.</p></div><div class="specs"><div><span>Top Speed</span><strong>193 km/h</strong></div><div><span>Range</span><strong>100 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
 <div class="card" data-region="Europe"><div class="img-box"><img src="3.jpg.jpg" alt="Lilium Jet"><span class="badge">Regional</span></div><div class="card-body"><div><div class="card-title">Lilium Jet</div><div class="card-maker">Lilium &bull; Germany</div><p class="card-desc">Ducted electric vectored thrust jet engineered for high-speed regional connectivity and cabin comfort.</p></div><div class="specs"><div><span>Top Speed</span><strong>250 km/h</strong></div><div><span>Range</span><strong>175 km</strong></div><div><span>Capacity</span><strong>1 + 6 Pax</strong></div></div></div></div>
-<div class="card" data-region="Asia"><div class="img-box"><img src="4.jpg.jpeg" alt="EHang EH216-S"><span class="badge">Autonomous</span></div><div class="card-body"><div><div class="card-title">EH216-S</div><div class="card-maker">EHang &bull; China</div><p class="card-desc">Certified pilotless autonomous aerial vehicle powered by 16 electric motors for short urban routes.</p></div><div class="specs"><div><span>Top Speed</span><strong>130 km/h</strong></div><div><span>Range</span><strong>30 km</strong></div><div><span>Capacity</span><strong>2 Pax</strong></div></div></div></div>
 <div class="card" data-region="Europe"><div class="img-box"><img src="5.jpg.jpg" alt="Volocopter VoloCity"><span class="badge">Urban</span></div><div class="card-body"><div><div class="card-title">VoloCity</div><div class="card-maker">Volocopter &bull; Germany</div><p class="card-desc">18-rotor electric multicopter engineered specifically for safe, quiet inner-city point-to-point transport.</p></div><div class="specs"><div><span>Top Speed</span><strong>110 km/h</strong></div><div><span>Range</span><strong>35 km</strong></div><div><span>Capacity</span><strong>2 Pax</strong></div></div></div></div>
 <div class="card" data-region="Europe"><div class="img-box"><img src="6.jpg.jpg" alt="CityAirbus NextGen"><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">CityAirbus NextGen</div><div class="card-maker">Airbus &bull; Europe</div><p class="card-desc">All-electric, four-seat vertical takeoff and landing prototype featuring eight electrically powered propellers.</p></div><div class="specs"><div><span>Top Speed</span><strong>120 km/h</strong></div><div><span>Range</span><strong>80 km</strong></div><div><span>Capacity</span><strong>4 Pax</strong></div></div></div></div>
+<div class="card" data-region="Europe"><div class="img-box"><div class="img-fallback">VERTICAL VX4</div><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">VX4</div><div class="card-maker">Vertical Aerospace &bull; UK</div><p class="card-desc">Piloted four-passenger vectored thrust eVTOL developed with major global airline partners.</p></div><div class="specs"><div><span>Top Speed</span><strong>241 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
+<div class="card" data-region="Asia"><div class="img-box"><img src="4.jpg.jpeg" alt="EHang EH216-S"><span class="badge">Autonomous</span></div><div class="card-body"><div><div class="card-title">EH216-S</div><div class="card-maker">EHang &bull; China</div><p class="card-desc">Certified pilotless autonomous aerial vehicle powered by 16 electric motors for short urban routes.</p></div><div class="specs"><div><span>Top Speed</span><strong>130 km/h</strong></div><div><span>Range</span><strong>30 km</strong></div><div><span>Capacity</span><strong>2 Pax</strong></div></div></div></div>
+<div class="card" data-region="Asia"><div class="img-box"><div class="img-fallback">XPENG VOYAGER X2</div><span class="badge">Autonomous</span></div><div class="card-body"><div><div class="card-title">Voyager X2</div><div class="card-maker">XPeng AeroHT &bull; China</div><p class="card-desc">Two-seat intelligent electric flying car with carbon fiber body and autonomous flight path planning.</p></div><div class="specs"><div><span>Top Speed</span><strong>130 km/h</strong></div><div><span>Range</span><strong>35 km</strong></div><div><span>Capacity</span><strong>2 Pax</strong></div></div></div></div>
+<div class="card" data-region="Asia"><div class="img-box"><div class="img-fallback">SKYDRIVE SD-05</div><span class="badge">Compact</span></div><div class="card-body"><div><div class="card-title">SD-05</div><div class="card-maker">SkyDrive &bull; Japan</div><p class="card-desc">Compact, lightweight urban air mobility vehicle engineered for dense metropolitan rooftop vertiports.</p></div><div class="specs"><div><span>Top Speed</span><strong>100 km/h</strong></div><div><span>Range</span><strong>15 km</strong></div><div><span>Capacity</span><strong>1 + 2 Pax</strong></div></div></div></div>
+<div class="card" data-region="MENA"><div class="img-box"><div class="img-fallback">DUBAI AIR TAXI</div><span class="badge">Commercial Ops</span></div><div class="card-body"><div><div class="card-title">Dubai Vertiport Network</div><div class="card-maker">RTA / Joby &bull; UAE</div><p class="card-desc">First commercial city-wide air taxi network connecting Dubai International Airport with key urban hubs.</p></div><div class="specs"><div><span>Top Speed</span><strong>322 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Launch</span><strong>2026 Ops</strong></div></div></div></div>
+<div class="card" data-region="MENA"><div class="img-box"><div class="img-fallback">NEOM AIR MOBILITY</div><span class="badge">Smart City</span></div><div class="card-body"><div><div class="card-title">NEOM eVTOL Transit</div><div class="card-maker">NEOM / Volocopter &bull; Saudi Arabia</div><p class="card-desc">Dedicated zero-emission vertical mobility infrastructure powering sustainable regional and urban transport.</p></div><div class="specs"><div><span>Top Speed</span><strong>110 km/h</strong></div><div><span>Range</span><strong>35 km</strong></div><div><span>Type</span><strong>Zero-Emission</strong></div></div></div></div>
 </div>
 </section>
 <section id="acquire" class="acquire">
 <span class="tag">Digital Asset &bull; For Sale</span>
 <h2>Acquire <span class="brand-logo">AnyeVTOL</span>.com</h2>
 <p><strong>AnyeVTOL.com</strong> is a category-defining, exact-match brand and turnkey web platform built for the rapidly expanding electric vertical takeoff and landing (eVTOL) and Urban Air Mobility industry.</p>
-<div class="highlights"><span>&#10003; Premium .COM Domain</span><span>&#10003; Turnkey Web Platform Included</span><span>&#10003; Secure Escrow Transfer via Atom</span></div>
+<div class="highlights"><span>✓ Premium .COM Domain</span><span>✓ Turnkey Web Platform Included</span><span>✓ Secure Escrow Transfer via Atom</span></div>
 <a href="https://atom.com" target="_blank" rel="noopener" class="btn">Make an Offer / Buy on Atom</a>
 </section>
 <footer><p>&copy; 2026 <span class="brand-logo">AnyeVTOL</span>.com &mdash; Global eVTOL Directory &amp; Digital Asset. Available for Acquisition.</p></footer>
 <script>
+const marketData={all:{title:"Global eVTOL Market Overview",desc:"Tracking top electric air taxi manufacturers worldwide. Projected global market size: $23.4B by 2030."},Americas:{title:"Americas Market (USA & Brazil)",desc:"Led by FAA certification milestones in the United States and major urban air mobility partnerships in Brazil."},Europe:{title:"European Union & UK Market",desc:"Pioneering strict EASA safety standards with strong backing for regional air mobility in Germany, France, and the UK."},Asia:{title:"Asia-Pacific Market (China & Japan)",desc:"Fastest-growing commercial adoption, led by CAAC type certifications in China and metropolitan vertiport networks in Japan."},MENA:{title:"Middle East Market (UAE & Saudi Arabia)",desc:"Global launchpad for commercial air taxi networks, with Dubai and NEOM deploying early vertiport infrastructure."}};
 let currentRegion='all';
-function filterRegion(r,btn){currentRegion=r;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filterCards()}
-function filterCards(){const q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const mText=c.innerText.toLowerCase().includes(q);const mReg=(currentRegion==='all'||c.getAttribute('data-region')===currentRegion);c.style.display=(mText&&mReg)?'flex':'none'})}
+function filterRegion(r,btn){currentRegion=r;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('marketInfo').innerHTML=`<h3>${marketData[r].title}</h3><p>${marketData[r].desc}</p>`;filterCards();}
+function filterCards(){const q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const mText=c.innerText.toLowerCase().includes(q);const mReg=(currentRegion==='all'||c.getAttribute('data-region')===currentRegion);c.style.display=(mText&&mReg)?'flex':'none';});}
 </script>
 </body>
 </html>
