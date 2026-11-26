@@ -79,3 +79,12 @@ footer{border-top:1px solid rgba(56,189,248,.15);padding:1.8rem 5%;text-align:ce
 <div class="highlights"><span>&#10003; Premium .COM Domain</span><span>&#10003; Turnkey Web Platform Included</span><span>&#10003; Secure Escrow Transfer via Atom</span></div>
 <a href="https://atom.com" target="_blank" rel="noopener" class="btn">Make an Offer / Buy on Atom</a>
 </section>
+  <footer><p>&copy; 2026 <span class="brand-logo">AnyeVTOL</span>.com &mdash; Global eVTOL Directory &amp; Digital Asset. Available for Acquisition.</p></footer>
+<script>
+let currentRegion='all';
+function filterRegion(r,btn){currentRegion=r;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filterCards()}
+function filterCards(){const q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const mText=c.innerText.toLowerCase().includes(q);const mReg=(currentRegion==='all'||c.getAttribute('data-region')===currentRegion);c.style.display=(mText&&mReg)?'flex':'none'})}
+</script>
+</body>
+</html>
+
