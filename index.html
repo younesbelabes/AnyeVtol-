@@ -1,359 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnyeVTOL | Global eVTOL Directory & Air Mobility Platform</title>
-    <link href="https://googleapis.com" rel="stylesheet">
-    <style>
-        :root {
-            --bg-main: #060b14;
-            --bg-card: #0d1626;
-            --bg-card-hover: #132038;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --brand-dark: #1d4ed8;
-            --brand-light: #38bdf8;
-            --border-color: rgba(56, 189, 248, 0.16);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-
-        /* Unified Gradient Brand Logo: Dark in 'Any', Light in 'eVTOL' */
-        .brand-logo {
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 38%, #38bdf8 70%, #bae6fd 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        /* Top Acquisition Notice Bar */
-        .acquisition-bar {
-            background: linear-gradient(90deg, rgba(29, 78, 216, 0.25), rgba(56, 189, 248, 0.2));
-            border-bottom: 1px solid rgba(56, 189, 248, 0.25);
-            padding: 0.6rem 5%;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #e0f2fe;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .acquisition-bar a {
-            color: #38bdf8;
-            font-weight: 700;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
-
-        header {
-            background: rgba(6, 11, 20, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            font-size: 1.85rem;
-            text-decoration: none;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.92rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--brand-light);
-        }
-
-        .nav-acquire-btn {
-            padding: 0.45rem 1rem;
-            border-radius: 8px;
-            background: rgba(56, 189, 248, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            color: #38bdf8 !important;
-            font-weight: 600;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 4.5rem 5% 3rem;
-            background: radial-gradient(circle at top center, rgba(37, 99, 235, 0.16) 0%, transparent 70%);
-        }
-
-        .hero h1 {
-            font-size: 3.1rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            max-width: 680px;
-            margin: 0 auto 2rem;
-            font-size: 1.08rem;
-        }
-
-        .controls {
-            max-width: 1140px;
-            margin: 0 auto 2.5rem;
-            padding: 0 5%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 260px;
-            padding: 0.85rem 1.2rem;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        .search-box:focus {
-            border-color: var(--brand-light);
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1.1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-card);
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background: linear-gradient(90deg, var(--brand-dark), var(--brand-light));
-            color: #fff;
-            border-color: transparent;
-        }
-
-        /* Directory Grid with Real Photos */
-        .directory {
-            max-width: 1140px;
-            margin: 0 auto 4rem;
-            padding: 0 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.75rem;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.25s, background 0.25s, border-color 0.25s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            background: var(--bg-card-hover);
-            border-color: rgba(56, 189, 248, 0.45);
-        }
-
-        .card-img-wrapper {
-            width: 100%;
-            height: 200px;
-            background: #09111e;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .card:hover .card-img-wrapper img {
-            transform: scale(1.05);
-        }
-
-        .card-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            font-size: 0.75rem;
-            padding: 0.3rem 0.7rem;
-            border-radius: 6px;
-            background: rgba(6, 11, 20, 0.82);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--brand-light);
-            font-weight: 600;
-        }
-
-        .card-body {
-            padding: 1.4rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            justify-content: space-between;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-
-        .card-company {
-            font-size: 0.85rem;
-            color: var(--brand-light);
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-        }
-
-        .card-desc {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .specs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 1rem;
-            text-align: center;
-        }
-
-        .spec-item span {
-            display: block;
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-        }
-
-        .spec-item strong {
-            font-size: 0.9rem;
-            color: var(--text-primary);
-        }
-
-        /* Live Comparison Section */
-        .compare-section {
-            max-width: 1140px;
-            margin: 0 auto 4rem;
-            padding: 0 5%;
-        }
-
-        .compare-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .compare-box h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.25rem;
-            text-align: center;
-        }
-
-        .compare-selectors {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .compare-select {
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            min-width: 220px;
-            font-size: 0.95rem;
-        }
-
-        .compare-result {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            text-align: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .compare-col h3 {
-            color: var(--brand-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .compare-col p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin: 0.25rem 0;
-        }
-
-        /* Professional Acquisition Section */
-        .acquire-section {
-            max-width: 1040px;
-            margin: 0 auto 4rem;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, rgba(29, 78, 216, 0.14), rgba(56, 189, 248, 0.06));
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .acquire-tag {
-            display: inline-block;
-        
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnyeVTOL | Global eVTOL Directory & Air Mobility Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+body{background:#060b14;color:#f8fafc;line-height:1.6}
+.brand-logo{font-weight:800;letter-spacing:-0.5px;background:linear-gradient(90deg,#1e3a8a 0%,#2563eb 38%,#38bdf8 70%,#bae6fd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.acq-bar{background:linear-gradient(90deg,rgba(29,78,216,.25),rgba(56,189,248,.2));border-bottom:1px solid rgba(56,189,248,.25);padding:.6rem 5%;text-align:center;font-size:.85rem;color:#e0f2fe}
+.acq-bar a{color:#38bdf8;font-weight:700;margin-left:.5rem}
+header{background:rgba(6,11,20,.95);border-bottom:1px solid rgba(56,189,248,.16);position:sticky;top:0;z-index:100;padding:1rem 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.8rem;text-decoration:none}
+nav a{color:#94a3b8;text-decoration:none;margin-left:1.2rem;font-size:.9rem;font-weight:600}
+.nav-btn{padding:.45rem .9rem;border-radius:8px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#38bdf8!important}
+.hero{text-align:center;padding:4rem 5% 2.5rem;background:radial-gradient(circle at top,rgba(37,99,235,.16),transparent 70%)}
+.hero h1{font-size:2.6rem;margin-bottom:1rem;line-height:1.2}
+.hero p{color:#94a3b8;max-width:650px;margin:0 auto 1.5rem;font-size:1.05rem}
+.controls{max-width:1100px;margin:0 auto 2rem;padding:0 5%;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between}
+.search-box{flex:1;min-width:240px;padding:.8rem 1rem;border-radius:10px;border:1px solid rgba(56,189,248,.2);background:#0d1626;color:#fff;font-size:.95rem}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap}
+.filter-btn{padding:.6rem 1rem;border-radius:8px;border:1px solid rgba(56,189,248,.2);background:#0d1626;color:#94a3b8;cursor:pointer;font-weight:600}
+.filter-btn.active{background:linear-gradient(90deg,#1d4ed8,#38bdf8);color:#fff;border-color:transparent}
+.grid{max-width:1100px;margin:0 auto 3.5rem;padding:0 5%;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.card{background:#0d1626;border:1px solid rgba(56,189,248,.16);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.img-box{width:100%;height:190px;background:#09111e;position:relative}
+.img-box img{width:100%;height:100%;object-fit:cover;display:block}
+.badge{position:absolute;top:10px;right:10px;font-size:.75rem;padding:.25rem .65rem;border-radius:6px;background:rgba(6,11,20,.85);border:1px solid rgba(56,189,248,.3);color:#38bdf8;font-weight:600}
+.card-body{padding:1.3rem;display:flex;flex-direction:column;flex:1;justify-content:space-between}
+.card-title{font-size:1.2rem;font-weight:700}
+.card-maker{font-size:.85rem;color:#38bdf8;font-weight:600;margin-bottom:.6rem}
+.card-desc{color:#94a3b8;font-size:.88rem;margin-bottom:1.1rem}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;border-top:1px solid rgba(56,189,248,.15);padding-top:.8rem;text-align:center}
+.specs span{display:block;font-size:.72rem;color:#94a3b8}
+.specs strong{font-size:.88rem}
+.acquire{max-width:1000px;margin:0 auto 3.5rem;padding:2.5rem 1.5rem;background:linear-gradient(135deg,rgba(29,78,216,.15),rgba(56,189,248,.07));border:1px solid rgba(56,189,248,.3);border-radius:18px;text-align:center}
+.tag{display:inline-block;padding:.3rem .85rem;border-radius:99px;background:rgba(56,189,248,.15);color:#38bdf8;font-size:.75rem;font-weight:700;text-transform:uppercase;margin-bottom:.8rem}
+.acquire h2{font-size:1.9rem;margin-bottom:.75rem}
+.acquire p{color:#94a3b8;max-width:640px;margin:0 auto 1.4rem}
+.highlights{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-bottom:1.6rem;font-size:.88rem;color:#cbd5e1}
+.btn{display:inline-block;padding:.9rem 2rem;border-radius:10px;background:linear-gradient(90deg,#1d4ed8,#38bdf8);color:#fff;font-weight:700;text-decoration:none}
+footer{border-top:1px solid rgba(56,189,248,.15);padding:1.8rem 5%;text-align:center;color:#94a3b8;font-size:.85rem}
+@media(max-width:640px){.hero h1{font-size:2rem}nav a:not(.nav-btn){display:none}}
+</style>
+</head>
+<body>
+<div class="acq-bar"><strong>Brand &amp; Platform Available:</strong> <span class="brand-logo">AnyeVTOL</span>.com is open for strategic acquisition. <a href="#acquire">Inquire Now &rarr;</a></div>
+<header>
+<a href="#" class="logo"><span class="brand-logo">AnyeVTOL</span></a>
+<nav><a href="#directory">Directory</a><a href="#acquire" class="nav-btn">Acquire Domain</a></nav>
+</header>
+<section class="hero">
+<h1>Explore the Future with <span class="brand-logo">AnyeVTOL</span></h1>
+<p>The global intelligence directory and comparison platform for Electric Vertical Takeoff and Landing (eVTOL) aircraft, air taxis, and autonomous aerial mobility.</p>
+</section>
+<section id="directory">
+<div class="controls">
+<input type="text" id="searchInput" class="search-box" placeholder="Search aircraft or manufacturer..." onkeyup="filterCards()">
+<div class="filters">
+<button class="filter-btn active" onclick="filterRegion('all',this)">All</button>
+<button class="filter-btn" onclick="filterRegion('USA',this)">USA</button>
+<button class="filter-btn" onclick="filterRegion('Europe',this)">Europe</button>
+<button class="filter-btn" onclick="filterRegion('Asia',this)">Asia</button>
+</div>
+</div>
+<div class="grid" id="cardsContainer">
+<div class="card" data-region="USA"><div class="img-box"><img src="https://wikimedia.org" alt="Joby S4"><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">Joby S4</div><div class="card-maker">Joby Aviation &bull; USA</div><p class="card-desc">All-electric 6-rotor tilt-propeller aircraft engineered for fast, quiet urban air mobility operations.</p></div><div class="specs"><div><span>Top Speed</span><strong>322 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
+<div class="card" data-region="USA"><div class="img-box"><img src="https://wikimedia.org" alt="Archer Midnight"><span class="badge">Air Taxi</span></div><div class="card-body"><div><div class="card-title">Midnight</div><div class="card-maker">Archer Aviation &bull; USA</div><p class="card-desc">12-propeller piloted eVTOL built for rapid back-to-back urban flights with minimal charging time.</p></div><div class="specs"><div><span>Top Speed</span><strong>241 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div></div>
+<div class="card" data-region="Europe"><div class="img-box"><img src="https://wikimedia.org" alt="Lilium Jet"><span class="badge">Regional</span></div><div class="card-body"><div><div class="card-title">Lilium Jet</div><div class="card-maker">Lilium &bull; Germany</div><p class="card-desc">Ducted electric vectored thrust jet engineered for high-speed regional connectivity and cabin comfort.</p></div><div class="specs"><div><span>Top Speed</span><strong>250 km/h</strong></div><div><span>Range</span><strong>175 km</strong></div><div><span>Capacity</span><strong>1 + 6 Pax</strong></div></div></div></div>
+<div class="card" data-region="Asia"><div class="img-box"><img src="https://wikimedia.org" alt="EHang EH216-S"><span class="badge">Autonomous</span></div><div class="card-body"><div><div class="card-title">EH216-S</div><div class="card-maker">EHang &bull; China</div><p class="card-desc">Certified pilotless autonomous aerial vehicle powered by 16 electric motors for short urban routes.</p></div><div class="specs"><div><span>Top Speed</span><strong>130 km/h</strong></div><div><span>Range</span><strong>30 km</strong></div><div><span>Capacity</span><strong>2 Pax</strong></div></div></div></div>
+<div class="card" data-region="Europe"><div class="img-box"><img src="https://wikimedia.org" alt="Volocopter VoloCity"><span class="badge">Urban</span></div><div class="card-body"><div><div class="card-title">VoloCity</div><div class="card-maker">Volocopter &bull; Germany</div><p class="card-desc">18-rotor electric multicopter engineered specifically for safe, quiet inner-city point-to-point transport.</p></div><div class="specs"><div><span>Top Speed</span><strong>110 km/h</strong></div><div><span>Range</span><strong>35 km</strong></div><div><span>Capacity</span><strong>2 Pax</strong></div></div></div></div>
+<div class="card" data-region="USA"><div class="img-box"><img src="https://wikimedia.org" alt="Wisk Generation 6"><span class="badge">Autonomous</span></div><div class="card-body"><div><div class="card-title">Generation 6</div><div class="card-maker">Wisk Aero &bull; USA</div><p class="card-desc">Self-flying, all-electric 4-passenger air taxi backed by Boeing, featuring 12 rotors and ground oversight.</p></div><div class="specs"><div><span>Top Speed</span><strong>222 km/h</strong></div><div><span>Range</span><strong>144 km</strong></div><div><span>Capacity</span><strong>4 Pax</strong></div></div></div></div>
+</div>
+</section>
+<section id="acquire" class="acquire">
+<span class="tag">Digital Asset &bull; For Sale</span>
+<h2>Acquire <span class="brand-logo">AnyeVTOL</span>.com</h2>
+<p><strong>AnyeVTOL.com</strong> is a category-defining, exact-match brand and turnkey web platform built for the rapidly expanding electric vertical takeoff and landing (eVTOL) and Urban Air Mobility industry.</p>
+<div class="highlights"><span>&#10003; Premium .COM Domain</span><span>&#10003; Turnkey Web Platform Included</span><span>&#10003; Secure Escrow Transfer via Atom</span></div>
+<a href="https://atom.com" target="_blank" rel="noopener" class="btn">Make an Offer / Buy on Atom</a>
+</section>
+<footer><p>&copy; 2026 <span class="brand-logo">AnyeVTOL</span>.com &mdash; Global eVTOL Directory &amp; Digital Asset. Available for Acquisition.</p></footer>
+<script>
+let currentRegion='all';
+function filterRegion(r,btn){currentRegion=r;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filterCards()}
+function filterCards(){const q=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const mText=c.innerText.toLowerCase().includes(q);const mReg=(currentRegion==='all'||c.getAttribute('data-region')===currentRegion);c.style.display=(mText&&mReg)?'flex':'none'})}
+</script>
+</body>
+    </html>
+    
