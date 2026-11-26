@@ -7,16 +7,16 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
 body{background:#060b14;color:#f8fafc;line-height:1.6}
-.brand-logo{font-weight:800;letter-spacing:-0.5px;background:linear-gradient(90deg,#1e3a8a 0%,#2563eb 38%,#38bdf8 70%,#bae6fd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.brand-logo{font-weight:800;letter-spacing:-0.5px;background:linear-gradient(90deg,#1e3a8a 0%,#1d4ed8 35%,#38bdf8 46%,#38bdf8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
 .acq-bar{background:linear-gradient(90deg,rgba(29,78,216,.28),rgba(56,189,248,.22));border-bottom:1px solid rgba(56,189,248,.3);padding:.65rem 5%;text-align:center;font-size:.86rem;color:#e0f2fe}
 .acq-bar a{color:#38bdf8;font-weight:700;margin-left:.5rem;text-decoration:underline}
 header{background:rgba(6,11,20,.95);border-bottom:1px solid rgba(56,189,248,.16);position:sticky;top:0;z-index:100;padding:1rem 5%;display:flex;justify-content:space-between;align-items:center}
 .logo{font-size:1.85rem;text-decoration:none}
 nav a{color:#94a3b8;text-decoration:none;margin-left:1.2rem;font-size:.92rem;font-weight:600}
 .nav-btn{padding:.48rem 1rem;border-radius:8px;background:rgba(56,189,248,.14);border:1px solid rgba(56,189,248,.4);color:#38bdf8!important}
-.hero{text-align:center;padding:4.2rem 5% 2.8rem;background:radial-gradient(circle at top,rgba(37,99,235,.18),transparent 70%)}
-.hero h1{font-size:2.7rem;margin-bottom:1rem;line-height:1.2}
-.hero p{color:#94a3b8;max-width:650px;margin:0 auto 1.5rem;font-size:1.05rem}
+.hero{position:relative;text-align:center;padding:5.5rem 5% 4.5rem;background:linear-gradient(180deg,rgba(6,11,20,.72) 0%,rgba(6,11,20,.92) 85%,#060b14 100%),url('hero.jpg') center/cover no-repeat;border-bottom:1px solid rgba(56,189,248,.14);margin-bottom:2.2rem}
+.hero h1{font-size:2.8rem;margin-bottom:1rem;line-height:1.2;text-shadow:0 4px 20px rgba(0,0,0,.6)}
+.hero p{color:#cbd5e1;max-width:650px;margin:0 auto 1.5rem;font-size:1.06rem}
 .controls{max-width:1100px;margin:0 auto 2rem;padding:0 5%;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between}
 .search-box{flex:1;min-width:240px;padding:.85rem 1.1rem;border-radius:10px;border:1px solid rgba(56,189,248,.22);background:#0d1626;color:#fff;font-size:.95rem}
 .filters{display:flex;gap:.5rem;flex-wrap:wrap}
@@ -64,7 +64,7 @@ footer{border-top:1px solid rgba(56,189,248,.15);padding:1.8rem 5%;text-align:ce
 </div>
 </div>
 <div class="grid" id="cardsContainer">
-<div class="card" data-region="USA"><div><div class="card-top"><div><div class="card-title">Joby S4</div><div class="card-maker">Joby Aviation &bull; USA</div></div><span class="badge">Air Taxi</span></div><p class="card-desc">All-electric 6-rotor tilt-propeller aircraft engineered for fast, low-noise urban air mobility operations.</p></div><div class="specs"><div><span>Top Speed</span><strong>322 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div>
+<div class="card" data-region="USA"><div><div class="card-top"><div><div class="card-title">Joby S4</div><div class="card-maker">Joby Aviation &bull; USA</div></div><span class="badge">Air Taxi</span></div><p class="card-desc">All-electric 6-rotor tilt-propeller aircraft engineered for fast, quiet urban air mobility operations.</p></div><div class="specs"><div><span>Top Speed</span><strong>322 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div>
 <div class="card" data-region="USA"><div><div class="card-top"><div><div class="card-title">Midnight</div><div class="card-maker">Archer Aviation &bull; USA</div></div><span class="badge">Air Taxi</span></div><p class="card-desc">12-propeller piloted eVTOL built for rapid back-to-back urban flights with minimal turnaround charging.</p></div><div class="specs"><div><span>Top Speed</span><strong>241 km/h</strong></div><div><span>Range</span><strong>160 km</strong></div><div><span>Capacity</span><strong>1 + 4 Pax</strong></div></div></div>
 <div class="card" data-region="Europe"><div><div class="card-top"><div><div class="card-title">Lilium Jet</div><div class="card-maker">Lilium &bull; Germany</div></div><span class="badge">Regional</span></div><p class="card-desc">Ducted electric vectored thrust jet engineered for high-speed regional connectivity and cabin comfort.</p></div><div class="specs"><div><span>Top Speed</span><strong>250 km/h</strong></div><div><span>Range</span><strong>175 km</strong></div><div><span>Capacity</span><strong>1 + 6 Pax</strong></div></div></div>
 <div class="card" data-region="Asia"><div><div class="card-top"><div><div class="card-title">EH216-S</div><div class="card-maker">EHang &bull; China</div></div><span class="badge">Autonomous</span></div><p class="card-desc">Certified pilotless autonomous aerial vehicle powered by 16 electric motors for short urban routes.</p></div><div class="specs"><div><span>Top Speed</span><strong>130 km/h</strong></div><div><span>Range</span><strong>30 km</strong></div><div><span>Capacity</span><strong>2 Pax</strong></div></div></div>
@@ -79,6 +79,3 @@ footer{border-top:1px solid rgba(56,189,248,.15);padding:1.8rem 5%;text-align:ce
 <div class="highlights"><span>&#10003; Premium .COM Domain</span><span>&#10003; Turnkey Web Platform Included</span><span>&#10003; Secure Escrow Transfer via Atom</span></div>
 <a href="https://atom.com" target="_blank" rel="noopener" class="btn">Make an Offer / Buy on Atom</a>
 </section>
-<footer><p>&copy; 2026 <span class="brand-logo">AnyeVTOL</span>.com &mdash; Global eVTOL Directory &amp; Digital Asset. Available for Acquisition.</p></footer>
-<script>
-let currentRegion='all';
