@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnyeVTOL | Global Electric Vertical Takeoff & Landing Directory</title>
+    <title>AnyeVTOL | Global eVTOL Directory & Air Mobility Platform</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
@@ -14,7 +14,7 @@
             --text-secondary: #94a3b8;
             --brand-dark: #1d4ed8;
             --brand-light: #38bdf8;
-            --border-color: rgba(56, 189, 248, 0.15);
+            --border-color: rgba(56, 189, 248, 0.16);
         }
 
         * {
@@ -40,8 +40,30 @@
             display: inline-block;
         }
 
+        /* Top Acquisition Notice Bar */
+        .acquisition-bar {
+            background: linear-gradient(90deg, rgba(29, 78, 216, 0.25), rgba(56, 189, 248, 0.2));
+            border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 0.6rem 5%;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #e0f2fe;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .acquisition-bar a {
+            color: #38bdf8;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
         header {
-            background: rgba(6, 11, 20, 0.9);
+            background: rgba(6, 11, 20, 0.92);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
@@ -54,31 +76,45 @@
         }
 
         .logo-container {
-            font-size: 1.8rem;
+            font-size: 1.85rem;
             text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
         nav a:hover {
             color: var(--brand-light);
         }
 
+        .nav-acquire-btn {
+            padding: 0.45rem 1rem;
+            border-radius: 8px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8 !important;
+            font-weight: 600;
+        }
+
         .hero {
             text-align: center;
-            padding: 5rem 5% 3.5rem;
-            background: radial-gradient(circle at top center, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            padding: 4.5rem 5% 3rem;
+            background: radial-gradient(circle at top center, rgba(37, 99, 235, 0.16) 0%, transparent 70%);
         }
 
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 3.1rem;
             margin-bottom: 1rem;
             line-height: 1.2;
         }
@@ -87,11 +123,11 @@
             color: var(--text-secondary);
             max-width: 680px;
             margin: 0 auto 2rem;
-            font-size: 1.1rem;
+            font-size: 1.08rem;
         }
 
         .controls {
-            max-width: 1100px;
+            max-width: 1140px;
             margin: 0 auto 2.5rem;
             padding: 0 5%;
             display: flex;
@@ -141,62 +177,91 @@
             border-color: transparent;
         }
 
+        /* Directory Grid with Real Photos */
         .directory {
-            max-width: 1100px;
+            max-width: 1140px;
             margin: 0 auto 4rem;
             padding: 0 5%;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.75rem;
         }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.5rem;
-            transition: transform 0.25s, background 0.25s;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.25s, background 0.25s, border-color 0.25s;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             background: var(--bg-card-hover);
-            border-color: rgba(56, 189, 248, 0.4);
+            border-color: rgba(56, 189, 248, 0.45);
         }
 
-        .card-header {
+        .card-img-wrapper {
+            width: 100%;
+            height: 200px;
+            background: #09111e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            background: rgba(6, 11, 20, 0.82);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--brand-light);
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 1.4rem;
             display: flex;
+            flex-direction: column;
+            flex: 1;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
         }
 
         .card-title {
             font-size: 1.25rem;
             font-weight: 700;
+            margin-bottom: 0.2rem;
         }
 
         .card-company {
             font-size: 0.85rem;
             color: var(--brand-light);
             font-weight: 600;
-        }
-
-        .badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 6px;
-            background: rgba(56, 189, 248, 0.12);
-            color: var(--brand-light);
-            font-weight: 600;
+            margin-bottom: 0.8rem;
         }
 
         .card-desc {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             margin-bottom: 1.25rem;
         }
 
@@ -220,103 +285,75 @@
             color: var(--text-primary);
         }
 
-        .cta-section {
-            max-width: 900px;
+        /* Live Comparison Section */
+        .compare-section {
+            max-width: 1140px;
             margin: 0 auto 4rem;
-            padding: 2.5rem;
-            background: linear-gradient(135deg, rgba(29, 78, 216, 0.15), rgba(56, 189, 248, 0.08));
+            padding: 0 5%;
+        }
+
+        .compare-box {
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .compare-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
             text-align: center;
         }
 
-        .cta-section h2 {
-            margin-bottom: 0.75rem;
-            font-size: 1.8rem;
-        }
-
-        .cta-section p {
-            color: var(--text-secondary);
+        .compare-selectors {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
             margin-bottom: 1.5rem;
         }
 
-        .btn-primary {
-            display: inline-block;
-            padding: 0.85rem 2rem;
+        .compare-select {
+            padding: 0.75rem 1rem;
             border-radius: 10px;
-            background: linear-gradient(90deg, #1d4ed8, #38bdf8);
-            color: #fff;
-            font-weight: 700;
-            text-decoration: none;
-            transition: opacity 0.2s;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            min-width: 220px;
+            font-size: 0.95rem;
         }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 5%;
+        .compare-result {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
             text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .compare-col h3 {
+            color: var(--brand-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-col p {
             color: var(--text-secondary);
             font-size: 0.9rem;
+            margin: 0.25rem 0;
         }
 
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2.3rem; }
-            nav { display: none; }
+        /* Professional Acquisition Section */
+        .acquire-section {
+            max-width: 1040px;
+            margin: 0 auto 4rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.14), rgba(56, 189, 248, 0.06));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            text-align: center;
         }
-    </style>
-</head>
-<body>
 
-    <header>
-        <a href="#" class="logo-container"><span class="brand-logo">AnyeVTOL</span></a>
-        <nav>
-            <a href="#directory">Directory</a>
-            <a href="#submit">List Aircraft</a>
-            <a href="#about">About</a>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>Explore the Future with <span class="brand-logo">AnyeVTOL</span></h1>
-        <p>The comprehensive global directory and comparison platform for Electric Vertical Takeoff and Landing (eVTOL) aircraft, air taxis, and autonomous aerial mobility.</p>
-    </section>
-
-    <section id="directory">
-        <div class="controls">
-            <input type="text" id="searchInput" class="search-box" placeholder="Search aircraft, manufacturer, or country..." onkeyup="filterCards()">
-            <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterRegion('all', this)">All Regions</button>
-                <button class="filter-btn" onclick="filterRegion('USA', this)">USA</button>
-                <button class="filter-btn" onclick="filterRegion('Europe', this)">Europe</button>
-                <button class="filter-btn" onclick="filterRegion('Asia', this)">Asia</button>
-            </div>
-        </div>
-
-        <div class="directory" id="cardsContainer">
-            <div class="card" data-region="USA">
-                <div>
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Joby S4</div>
-                            <div class="card-company">Joby Aviation • USA</div>
-                        </div>
-                        <span class="badge">Air Taxi</span>
-                    </div>
-                    <p class="card-desc">All-electric 6-rotor tilt-propeller aircraft designed for fast, quiet urban air mobility operations.</p>
-                </div>
-                <div class="specs">
-                    <div class="spec-item"><span>Top Speed</span><strong>322 km/h</strong></div>
-                    <div class="spec-item"><span>Range</span><strong>160 km</strong></div>
-                    <div class="spec-item"><span>Capacity</span><strong>1 + 4 Pax</strong></div>
-                </div>
-            </div>
-
-            <div class="card" data-region="USA">
-                <div>
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">Midnight</div>
+        .acquire-tag {
+            display: inline-block;
+        
